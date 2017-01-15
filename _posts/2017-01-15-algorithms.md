@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "My thoughts on Algorithms to Live By"
-date:   2016-09-05 17:12:01 -0500
+date:   2017-01-15 17:26:01 -0500
 ---
 
 For Christmas I received Algorithms to Live By written by Brian Christian and Tom Griffiths. 
