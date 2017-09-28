@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <!-- Web Font / @font-face : BEGIN -->
+    <!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
+
+    <!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+    <!--[if mso]>
+        <style>
+            * {
+                font-family: sans-serif !important;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+    <!--[if !mso]><!-->
+    <!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+    <!--<![endif]-->
+
+    <!-- Web Font / @font-face : END -->
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        /* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+        table table table {
+            table-layout: auto;
+        }
+
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+
+        /* What it does: A work-around for email clients meddling in triggered links. */
+        *[x-apple-data-detectors],  /* iOS */
+        .x-gmail-data-detectors,    /* Gmail */
+        .x-gmail-data-detectors *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
+        .a6S {
+           display: none !important;
+           opacity: 0.01 !important;
+       }
+       /* If the above doesn't work, add a .g-img class to any image in question. */
+       img.g-img + div {
+           display: none !important;
+       }
+
+       /* What it does: Prevents underlining the button text in Windows 10 */
+        .button-link {
+            text-decoration: none !important;
+        }
+
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
+        /* Thanks to Eric Lepetit (@ericlepetitsf) for help troubleshooting */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { /* iPhone 6 and 6+ */
+            .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+    </style>
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+
+        h2 {
+          font-size: 3em;
+            line-height: 1em;
+        }
+        /* What it does: Hover styles for buttons */
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+        .button-td:hover,
+        .button-a:hover {
+            background: #555555 !important;
+            border-color: #555555 !important;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 600px) {
+
+            .email-container {
+                width: 100% !important;
+                margin: auto !important;
+            }
+
+            /* What it does: Forces elements to resize to the full width of their container. Useful for resizing images beyond their max-width. */
+            .fluid {
+                max-width: 100% !important;
+                height: auto !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            /* What it does: Forces table cells into full-width rows. */
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+            /* And center justify these ones. */
+            .stack-column-center {
+                text-align: center !important;
+            }
+
+            /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                float: none !important;
+            }
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+
+            /* What it does: Adjust typography on small screens to improve readability */
+            .email-container p {
+                font-size: 17px !important;
+                line-height: 22px !important;
+            }
+        }
+
+    </style>
+    <!-- Progressive Enhancements : END -->
+
+    <!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+
+</head>
+<body width="100%" bgcolor="#222222" style="margin: 0; mso-line-height-rule: exactly;">
+    <center style="width: 100%; background: #777777; text-align: left;">
+
+
+        <!-- Email Header : BEGIN -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
+            <tr>
+                <td style="padding: 0px 0; text-align: center">
+                    <img src="https://i.imgur.com/BGEDsnU.png" width="600" height="200" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                </td>
+            </tr>
+            <!-- 1 Column Text + Button : BEGIN -->
+            <tr>
+                <td bgcolor="#ffb916" style="padding: 10px 10px 10px; text-align: center;">
+                    <h1 style="margin: 0; font-family: sans-serif; font-size: 24px; line-height: 27px; color: #333333; font-weight: normal;">Vol. October 2017</h1>
+                </td>
+            </tr>
+        </table>
+        <!-- Email Header : END -->
+
+        <!-- Email Body : BEGIN -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
+
+            <!-- Hero Image, Flush : BEGIN -->
+            <tr>
+                <td bgcolor="#ffb916" align="center">
+                    <img src="https://i.imgur.com/LxkKGQM.jpg" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; margin: auto;" class="g-img">
+                </td>
+            </tr>
+            <!-- Hero Image, Flush : END -->
+
+            <tr>
+                <td bgcolor="#ed8931" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <!-- Column : BEGIN -->
+                        <td>
+													<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 !important; ">
+														<tr>
+															<td style="padding: 10px; text-align: left;">
+																<h2>In this issue</h2>
+																<h3 style="display: inline;">Upcoming Events</h3>
+                                <br/>
+																<h3 style="display: inline;">Our Leader</h3>
+																District A Director
+                                <br/>
+																<h3 style="display: inline;">Keynote Member Experience</h3>
+																Ande Clumpus
+                                <br/>
+																<h3 style="display: inline;">Education</h3>
+																Phil Tasci
+                                <br/>
+																<h3 style="display: inline;">Philosopher's Contemplation</h3>
+																Sunil Kumar
+                                <br/>
+																<h3 style="display: inline;">Favourite Speech</h3>
+																Bala Iyengar
+                                <br/>
+																<h3 style="display: inline;">Trivia</h3>
+																Ron Tsang
+                                <br/>
+															</td>
+														</tr>
+													</table>
+                        </td>
+                        <!-- Column : END -->
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <!-- 1 Column Text + Button : END -->
+
+            <!-- 1 Column Text + Button : BEGIN -->
+            <tr>
+                <td bgcolor="#fff9ad" style="padding: 0 40px 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <!-- Column : BEGIN -->
+                        <td class="stack-column-center">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="padding: 10px; text-align: left;">
+																			<h2>Upcoming Events</h2>
+                                      <h3>October 3 (Tuesday)</h3>
+                                      Our Pat de Valence is speaking at Richmond Hll Garden Club - Boost Property Value: Add Trees <a href="http://www.richmondhillgardensociety.org/event-2464498">Click here for more details.</a>
+                                      <h3>October 6 (Friday)</h3>
+                                      Ron Tsang is hosting Dr. John Demartini on Business Mastery and Empowering Your Entrepreneurial Spirit <a href="https://www.eventbrite.ca/e/tepp-talks-dr-john-demartini-on-business-mastery-and-empowering-your-entrepreneurial-spirit-tickets-37570229568">Click here for more details</a> <a href="https://www.youtube.com/watch?v=pYft2E7YS1k&feature=youtu.be">(watch Dr. Demartine’s video message)</a>
+                                      <h3>November 12 (Sunday)</h3>
+                                      Keynote is hosting Darren Lacroix - Speaking Outside for Fun, Profit and Club Building <a href="https://www.eventbrite.ca/e/darren-lacroix-speaking-outside-for-fun-profit-and-club-building-tickets-37981699285?aff=efbevent">Click here for more details</a>
+                                      <h3>November 25 (Saturday)</h3>
+                                      Keynote Open House
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <!-- Column : END -->
+                    </tr>
+                </table>
+                </td>
+            </tr>
+            <!-- 1 Column Text + Button : END -->
+            <!-- Clear Spacer : BEGIN -->
+            <tr>
+                <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                    &nbsp;
+                </td>
+            </tr>
+            <!-- Clear Spacer : END -->
+
+            <!-- 1 Column Text : BEGIN -->
+            <tr>
+                <td bgcolor="#ffffff">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                              <h2>Our Leader</h2>
+                              <img src="https://i.imgur.com/7wa3Imo.jpg?2" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; margin: auto;" class="g-img">
+                              <p>Welcome our Division A Director Victoria Nguyen! She is relatively new to District 60 but she has rich experiences and insights as a Toastmaster.</p>
+                               
+                              <b>Tell us your Toastmasters background.</b>
+                              <p>In 2013, I was working at a market research firm in Boston that offered corporate training on delivering effective presentations. Some colleagues and I took the course and wanted to continue developing our skills, which led to chartering our own Toastmasters club. I have continued to be active as a member and a leader, even after relocating to Toronto this year.</p>
+                               
+                              <b>Share with us your vision as Division A Director</b>
+                              <p>I would like to help fellow Toastmasters stay connected to the fundamental reasons that brought them here in the first place, and to arm them with creative ideas on how they can continue to challenge themselves and find value in all meeting roles, big or small. Toastmasters should never feel like a tedious chore of filling agendas and ticking off boxes in a manual.</p>
+                               
+                              <b>What was your very first impression of Keynote?</b>
+                              <p>What immediately stood out when I visited Keynote is the balance that members strike between having a good time and taking their responsibilities very seriously. Keynote members are dedicated and passionate, as evidenced by their many pursuits within and outside their club. I can see why Keynote is so well-known in District 60.   </p>
+                               
+                              <b>What does Keynote do well, and how can Keynote continue to grow?</b>
+                              <p>Keynote has developed a three-pronged evaluation format that I have never seen in other clubs. I commend Keynote’s willingness to step outside the box while staying true to the Toastmasters mission. If Keynote keeps nurturing this spirit of continuous improvement by welcoming new ideas and regularly assessing whether it is delivering maximum value to members, I have no doubt the club will continue to thrive.</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- 1 Column Text : END -->
+
+        <!-- Clear Spacer : BEGIN -->
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+        <!-- 2 Even Columns : BEGIN -->
+        <tr>
+            <td bgcolor="#42f4cb" align="center" valign="top" style="padding: 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left;" class="center-on-narrow">
+                                        <h2>Keynote Member Experiences</h2>
+                                        <h3>Ande Clumpus</h3>
+                                      <img src="https://i.imgur.com/yXR7zkb.jpg" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; float: right;">
+                                      <p>Even for a speaker as recognized, accomplished and humble as me, walking into Keynote for the first time can be a very intimidating experience. We don't run our meetings the same as other clubs, we don't do our evaluations the same as other clubs, and the quality and capability of our members is hardly the same as a typical Toastmasters club. It's no surprise that it took a while for the intimidation to wear off, even after I'd joined.</p>
+                                      <p>But it's that very intimidation factor that causes me to bring my A-game to every speech and evaluation I do at Keynote. The temptation to do a half-hearted job is easy to ignore when I know I'll be delivering to some of the best speakers in the District—and getting feedback that wouldn't be available anywhere else.</p>
+                                      <p>We want to be a welcoming and open club to anyone who is interested. But it's okay if our visitors feel like they're walking into something they've never experienced before. It may be a bit intimidating, but they'll be glad they stayed.</p>
+            </td>
+        </tr>
+        <!-- 2 Even Columns : END -->
+
+
+        <!-- Clear Spacer : BEGIN -->
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+        <!-- 2 Even Columns : BEGIN -->
+        <tr>
+            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left;" class="center-on-narrow">
+                                        <h2>Philosopher's Contemplation</h2>
+                                        <h3>Sunil Kumar</h3>
+                                      <img src="https://i.imgur.com/wWZ2h6X.jpg" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                                        <blockquote style="line-height: 2em;">"An intelligent man knows what to say, and a wise man knows when to say it".</blockquote>
+                                        <p style="text-align: right;">Author Unknown</p>
+                                        <img style="float: right;" src="https://i.imgur.com/xPLc4MW.jpg" width="100" height="150" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                                        <p>This is a quote that has served me well in both professional and personal life.  Quite often, we are tempted to shown the person how much smarter we are, but to be effective and a leader, we need to consider the probable reaction of the other person and what is the outcome we are trying to elicit!!</p>
+            </td>
+        </tr>
+        <!-- 2 Even Columns : END -->
+
+        <!-- Clear Spacer : BEGIN -->
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td bgcolor="#ffffff">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <h2>Education</h2>
+                          <img style="display: block; margin: 20px auto;" src="https://i.imgur.com/g3kQehJ.jpg" width="250" height="230" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <p>Phil Tasci’s book is expanding his business as a speaker, trainer and writer.  Here is an excerpt from his highly anticipated book “Speak Like A Pro”</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <img style="float: right;" src="https://i.imgur.com/ReUgGNA.jpg" width="170" height="170" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <h3 style="display:block;">Humour within your story by Phi Tasci</h3>
+                          <p>I have heard it said many times that if you want to get paid as a speaker, you must make your audiences laugh.I couldn’t agree more! Humour is imperative to a great presentation. It relieves some of the stress and tension that you have purposefully created and built up through the conflicts in your stories. Humour can also just simply be used to lighten the mood and provide a bit of light hearted entertainment. Whatever the type of presentation, you will seldom go wrong with the judicious use of well-timed humour.</p>
+                          <img style="float: left; margin: 20px auto;" src="https://i.imgur.com/R7cUQwu.jpg" width="150" height="250" alt="alt_text" border="0" class="fluid" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <p>An important point to note is that you should always strive to uncover the humour within your story. Never ever use canned jokes, especially jokes found on the internet; chances are that someone has already heard the joke. Canned jokes rarely fit the story and often come across feeling a bit forced - like squeezing a square peg into a round hole.</p>
+                          <p>Find, or even better yet, reveal the humour within the story, within the   setting, or amongst the characters. Exaggerate some aspect or detail of  character to the verge of the ridiculous with a funny comparison.  A tip to getting a good laugh is to place the joke in the mouth of a character through dialogue. It’s an easy way of exploiting the funny side of miscommunication and misdirection.</p>
+                          <p>Humour is an important key to connecting with your audience, whether you’re lessening the tension in the room after saying something serious or just simply being entertaining, getting a smile and some laughter is priceless.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+
+        <!-- Clear Spacer : BEGIN -->
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td bgcolor="#f4b541">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <h2>Keynote Member’s Favorite Speech</h2>
+                          <h3>What speeches have impressed me? By Bala Iyengar</h3>
+                          <p>To me impressive speeches are far and few between within the Toastmasters. Toastmasters speeches, I have found, tend to overly focus on delivery such as theatrical posturing, clichés, and hyperboles, but often lack substance in their conveyed ideas, (if they have any idea at all,) all of which often reduces me into a state of torpor.</p>
+
+                          <p>Toastmasters would do well to Oxford Union Debates, in particular the one by Dr. Shashi Tharoor.</p>
+
+                          <p>Dr. Tharoor’s speech resonates viscerally with me, not only because of my familiarity with his subject matter, but also because of his acuity and his ability to simplify a highly complex idea. His language is crisp and succinct. His capacity for humorous irony and critical thinking are riveting.</p>
+
+                          <p><a href="https://www.youtube.com/watch?v=f7CW7S0zxv4">Watch his speech on Youtube. </a></p>
+
+                          <p>The subject matter might not be your cup of tea. However, look at how the complex content is delivered with simplicity. What I would like to see is a greater balance between delivery and content, maybe with a little more emphasis on content.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+        <!-- 2 Even Columns : BEGIN -->
+        <tr>
+            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left;" class="center-on-narrow">
+                                      <h2>Keynote Trivia</h2>
+                                      <h3>Ron Tsang</h3>
+                                      <p>How many Keynote chaterter members are still active Keynoters as of now (October)?</p>
+                                      <p>How many DTMs does Keynote have as of now (October)?</p>
+                                      The answers will be posted on the next issue of Keynote Newsletter</p>
+              </td>
+        </tr>
+        <!-- 1 Column Text : END -->
+
+        <!-- Clear Spacer : BEGIN -->
+        <tr>
+            <td aria-hidden="true" height="40" style="font-size: 0; line-height: 0;">
+                &nbsp;
+            </td>
+        </tr>
+        <!-- Clear Spacer : END -->
+
+        <!-- 1 Column Text : BEGIN -->
+        <tr>
+            <td bgcolor="#fc7e7e">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                          <p>A BIG THANK YOU to all the Keynote members who contributed their ideas, guidance, articles and technical support.</p>
+                          <p>Chizuru the editor</p>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- Clear Spacer : BEGIN -->
+
+    </table>
+    <!-- Email Body : END -->
+
+    <!-- Email Footer : BEGIN -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto; font-family: sans-serif; color: #888888; line-height:18px;" class="email-container">
+        <tr>
+            <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; line-height:18px; text-align: center; color: #888888;" class="x-gmail-data-detectors">
+District 60 - Division A - Area 3 - KEYNOTE Meet 2nd and 4th Saturday at 10AM
+            </td>
+        </tr>
+    </table>
+    <!-- Email Footer : END -->
+
+    <!-- Full Bleed Background Section : BEGIN -->
+
+    </center>
+</body>
+</html>
+
+
+
