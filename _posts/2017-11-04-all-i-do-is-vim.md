@@ -187,7 +187,7 @@ To move around windows you can use `ctrl+w ctrl+w` to toggle your cursor between
 
 ## Fancy stuff
 
-So there are a few handy moves that I don't know where to put them. They are definitely outside the basics.
+So there are a few handy moves that I don't know where to put. They are definitely beyond the basics.
 
 `:%s/existing-string/new-string/g` Will find all instances of "existing-string" and replace it with "new-string"
 
