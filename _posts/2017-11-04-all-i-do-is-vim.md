@@ -49,7 +49,7 @@ I assume you understand the difference between insert, visual and normal mode.
 ![gg]({{ "/assets/gg.gif" }})
 
 `G` will jump you to the bottom of the file
-![G]({{ "/assets/G.gif" }})
+![G]({{ "/assets/g.gif" }})
 
 `0` will move you to the front of the line
 ![0]({{ "/assets/0.gif" }})
